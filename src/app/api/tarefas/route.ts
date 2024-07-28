@@ -22,10 +22,17 @@ export async function PUT(request: Request) {
 
   const data = await request.json();
 
-  // console.log("Data: " + data.name);
-  // console.log("index: " + index);
-
   tarefas[Number(index)] = data.name;
 
   return NextResponse.json(tarefas);
+}
+
+// Criando uma Rota DELETE
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const index = searchParams.get("index");
+
+  tarefas.splice(Number(index), 1);
+
+  return NextResponse.json({ message: "Tarefa deletado com sucesso", tarefas})
 }
